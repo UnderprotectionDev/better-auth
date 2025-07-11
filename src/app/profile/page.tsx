@@ -2,12 +2,13 @@ import { ReturnButton } from "@/components/return-button";
 import { SignOutButton } from "@/components/sign-out-button";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function Profile() {
   const session = await auth.api.getSession({ headers: await headers() });
 
   if (!session) {
-    return <p className="text-destructive">Unauthorized</p>;
+    redirect("/auth/login");
   }
 
   return (
